@@ -1,0 +1,177 @@
+<%- include('../layouts/header.ejs') %>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap');
+  body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+  }
+
+  h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 50px;
+  }
+
+  a {
+      
+      margin: 30px 35px;
+      padding: 10px;
+      background-color: #0065b8;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 6px;
+      align-content: center;
+  }
+
+  form {
+      text-align: center;
+  }
+
+  input[type="text"] {
+      padding: 10px;
+      margin: 0 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+      background-color: #0065b8;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+      background-color: #1e7ac5;
+  }
+
+  table {
+      width: 60%;
+      margin: 50px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  th, td {
+      padding: 10px;
+      /* text-align: left; */
+      border-bottom: 1px solid #ddd;
+  }
+
+  tr:hover {
+      background-color: #f5f5f5;
+  }
+
+  td a {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 4px;
+  }
+
+  td a.edit {
+      width:80%;
+      background-color:#1e7ac5;
+  }
+
+  td a.delete {
+      background-color: #f44336;
+  }
+
+  a.go-home {
+      display: block;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 4px;
+  }
+
+
+
+</style>
+
+<h1>Dashboard</h1>
+
+<div class="text-center mb-5">
+
+    <% if(locals.addSuccess) {%>
+
+    <span class="text-success"><%= addSuccess %></span>
+
+    <% } %>
+
+   </div>
+
+<div class="text-center mb-5">
+
+    <% if(locals.updatesuccess) {%>
+
+    <span class="text-success"><%= updatesuccess %></span>
+
+    <% } %>
+
+   </div>
+
+
+<form action="/admin/search">
+  <input type="text" placeholder="Search username,email" name="search" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>">
+  <input type="submit" value="Search">
+</form>
+
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Actions</th>
+    </tr>
+
+    <% if(users.length > 0){
+      for(let i = 0; i < users.length; i++){
+    %>
+        <tr>
+          <td><%= users[i].first_name %></td>
+          <td><%= users[i].last_name %></td>
+          <td><%= users[i].email %></td>
+          <td><%= users[i].username %></td>
+          <td>
+            <a href="/admin/editUser?id=<%= users[i]._id %>">Edit</a>
+            <a href="/admin/deleteUser?id=<%= users[i]._id %>" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+        </td>
+        </tr>
+    <%
+      }
+    }else{
+    %>
+        <tr>
+          <td colspan="4">Users not found</td>
+        </tr> 
+    <%
+    } 
+    %>
+</table>
+
+<div class="container text-center my-3" >
+    <a href="/admin/addUser">Add New User</a>
+    <!-- <a href="/admin/home">Go To Home</a> -->
+    <a href="/admin/logout">Logout</a>
+
+</div>
+
+<%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,79 @@
+<%- include('../layouts/header.ejs') %>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+<section class="d-flex flex-column w-100 vh-100 justify-content-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 center-block">
+        <div class="card border border-light-subtle bg-light-subtle rounded-3 shadow-sm shadow-lg">
+          <div class="card-body p-0">
+            <div class="text-center mb-4">
+              <img src="https://fontawesome.com/social/user?f=&s=" class="w-100 center-block rounded-top-3" alt="" />
+            </div>
+
+            <div class="text-center">
+
+              <% if(locals.passworderror) {%>
+          
+              <span class="text-danger"><%= passworderror %></span>
+          
+              <% } %>
+          
+             </div>
+
+            <div class="text-center">
+
+              <% if(locals.usernameError) {%>
+          
+              <span class="text-danger"><%= usernameError %></span>
+          
+              <% } %>
+          
+             </div>
+
+            <div class="text-center">
+
+              <% if(locals.signupsuccess) {%>
+          
+              <span class="text-success"><%= signupsuccess %></span>
+          
+              <% } %>
+          
+             </div>
+
+             </div>
+          
+            <div class="row py-1 px-md-4 px-xl-5">
+              <div class="col-12">
+                <form action="/login" method="post" class="mx-1">
+                  <div class="mb-3">
+                    <input placeholder="Username" type="text" class="form-control py-3 bg-light-subtle" name="username" required />
+                  </div>
+                  <div class="mb-3">
+                    <input placeholder="Password" type="password" class="form-control py-3 bg-light-subtle" name="password" required />
+                  </div>
+                  <div class="text-center pt-3">
+                      <div class="alert py-0 text-center" role="alert">
+                      </div>
+                    <button type="submit" style="background-color: rgb(1,210,142);" class="btn w-100 py-3 rounded-3 text-light text-center">Login</button>
+                  </div>
+                  <h2 style="font-family: Arial, Helvetica, sans-serif;" style="color: #808080; font-weight: lighter;" class="fs-6 text-center pt-4">Not a member?<a class="link-offset-2 link-underline link-underline-opacity-0 signuplink" href="/register">Register Now</a></h2>
+                  <div class="container text-center mb-3">
+                    <a class="link-offset-2 link-underline link-underline-opacity-0 signuplink" href="/admin">Go to Admin</a>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../layouts/footer.ejs') %>
